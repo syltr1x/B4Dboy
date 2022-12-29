@@ -1,0 +1,19 @@
+zipUrl = https://eternallybored.org/misc/netcat/netcat-win32-1.11.zip
+
+-29.1500 - 80 ,-59.6500
+-29.2253,-59.6000
+
+
+#keys bat
+
+@if (@CodeSection == @Batch) @then
+@echo off
+SET SendKeys=CScript //nologo //E:JScript "%~F0"
+timeout /nobreak 5
+%SendKeys% "{LEFT}"
+GOTO :EOF
+
+@end
+// JScript section
+var WshShell = WScript.CreateObject("WScript.Shell");
+WshShell.SendKeys(WScript.Arguments(0));0
