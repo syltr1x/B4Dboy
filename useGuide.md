@@ -40,4 +40,4 @@
 -t/--token : en caso de tener un token de ngrok puede configurarlo. Modo de uso :config -t=<token>
 -s/--sessions-id : modifique el diccionario que se usa para generar las id de sesiones
 
-[Info] Por mas que se aconseja la modificacion de ciertos parametros para un uso mas comodo y practico, asegurese de saber lo q hace antes de configurar.<45TGFV6>
+[Info] Por mas que se aconseja la modificacion de ciertos parametros para un uso mas comodo y practico, asegurese de saber lo q hace antes de configurar.
