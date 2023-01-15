@@ -1,0 +1,1 @@
+$pubip=curl.exe -s https://api.ipify.org; $ipdata=curl.exe -s "ipinfo.io/"+$pubip+"?token=a70e36470018f5"
