@@ -1,5 +1,4 @@
 #!/bin/python3
-#$pubip=curl.exe -s https://api.ipify.org; $ipdata=curl.exe -s "ipinfo.io/"+$pubip+"?token=a70e36470018f5"
 
 import random as r
 import subprocess
@@ -109,7 +108,32 @@ def mod_log():
         elif "-c" in arg:
             with open("logs/sessions.json", "w") as sesF: sesF.write(""); sesF.close(); os.system('clear'); banner()
             print("[+] Data deleted successfully. ")
-        elif "-gc" in arg:
+        elif "-gm" in arg:
+            if "--geo-mod" in arg: id = arg.split(arg[9])[1]
+            else: id = arg.split(arg[3])[1]
+            for pars in range(2, len(args)):
+                if ":" in args[pars]: field = args[pars].split(":")[0]; value = args[pars].split(":")[1]
+                elif "=" in args[pars]: field = args[pars].split("=")[0]; value = args[pars].split("=")[1]
+                else : print("[-] Unexpected value in : "+args[pars])
+                with open("logs/geo.json", "r") as geoF:
+                    oldData = geoF.read()
+                geoF.close()
+                oldData = oldData.replace("[","").replace("]","").replace(",{",",{{").replace("\n","").split(",{")
+                for sess in oldData:
+                    sess = json.loads(sess)
+                    if sess["sess_id"] == id: session = sess
+                remove_geo(id)
+                with open("logs/geo.json", "r") as geoF: old = geoF.read()[:-1]; geoF.close()
+                with open("logs/geo.json", "w") as geoF: 
+                    geoF.write(old)
+                    if field == "country": geoF.write(',{\n    "sess_id":"'+session["sess_id"]+'",\n    "country":"'+value+'",\n    "iso":"'+session["iso"]+'",\n    "latitude":"'+session["latitude"]+'",\n    "longitude":"'+session["longitude"]+'"\n}\n]')
+                    elif field == "iso": geoF.write(',{\n    "sess_id":"'+session["sess_id"]+'",\n    "country":"'+session["country"]+'",\n    "iso":"'+value+'",\n    "latitude":"'+session["latitude"]+'",\n    "longitude":"'+session["longitude"]+'"\n}\n]')
+                    elif field == "latitude": geoF.write(',{\n    "sess_id":"'+session["sess_id"]+'",\n    "country":"'+session["country"]+'",\n    "iso":"'+session["iso"]+'",\n    "latitude":"'+value+'",\n    "longitude":"'+session["longitude"]+'"\n}\n]')
+                    elif field == "longitude": geoF.write(',{\n    "sess_id":"'+session["sess_id"]+'",\n    "country":"'+session["country"]+'",\n    "iso":"'+session["iso"]+'",\n    "latitude":"'+session["latitude"]+'",\n    "longitude":"'+value+'"\n}\n]')
+                    os.system('clear')
+                    banner()
+                    print(f"[+] {field} updated successfully")
+        elif "-g" in arg:
             if "--geo" in arg: id = arg.split(arg[5])[1]
             else: id = arg.split(arg[3])[1]
             pars = args[args.index(arg)+1]
@@ -121,40 +145,6 @@ def mod_log():
                 with open("logs/geo.json", "w") as geoF: geoF.write(dato[:-1]+',{\n    "sess_id":"'+id+'",\n    "country":"'+data["timezone"].split('/')[1]+'",\n    "iso":"'+data["country"]+'",\n    "latitude":"'+data["loc"].split(",")[0]+'",\n    "longitude":"'+data["loc"].split(",")[1]+'"\n}\n]'); geoF.close()
             else : 
                 with open("logs/geo.json", "w") as geoF: geoF.write('[\n{\n    "sess_id":"'+id+'",\n    "country":"'+data["timezone"].split('/')[1]+'",\n    "iso":"'+data["country"]+'",\n    "latitude":"'+data["loc"].split(",")[0]+'",\n    "longitude":"'+data["loc"].split(",")[1]+'"\n}\n]'); geoF.close()
-        elif "-gm" in arg:
-            if "--geo-mod" in arg: id = arg.split(arg[9])[1]
-            else: id = arg.split(arg[3])[1]
-            for pars in range(2, len(args)):
-                if ":" in args[pars]: field = args[pars].split(":")[0]; value = args[pars].split(":")[1]
-                elif "=" in args[pars]: field = args[pars].split("=")[0]; value = args[pars].split("=")[1]
-                else : print("[-] Unexpected value in : "+args[pars])
-                with open("logs/geo.json", "r") as geoF:
-                    oldData = geoF.read() 
-                    sessData = oldData
-                    lista = sessData.replace("[","").replace("]","").replace(",{",",{{").split(",{")
-                    sessData = []
-                    for arg in lista:
-                        print(arg)
-                        print(type(arg))
-                        print(sessData)
-                        #sessData.append(json.loads(arg))
-                    for sess in sessData:
-                        if sess['sess_id'] == id:
-                            remove_geo(id)
-                            if field == "country": 
-                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+value+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]')
-                            elif field == "iso": 
-                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+value+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]')
-                            elif field == "latitude": 
-                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+value+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]')
-                            elif field == "longitude": 
-                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+value+'"\n}\n]')
-                            else: print("[-] Err : field on sessions data don´t exist. Please read the README.md for more info.")
-                        os.system('clear')
-                        banner()
-                        print(f"[+] {field} updated successfully")
-
-
 
 def start_ses():
     ses = ""
@@ -206,7 +196,15 @@ def show_info():
                 print("[-] Err : No sessions stored.")
         sesF.close()
     elif action[1] == "-g" or action[1] == "--geo":
-        print("[-] Geolocalization will be available soon")
+        with open("logs/geo.json", "r") as geoF: geoData = geoF.read(); geoF.close()
+        if geoData != "":
+            geoData = geoData.replace("[","").replace("]","").replace(",{",",{{").split(",{")
+            print("Session ID          Country          ISO3      Latitude      Longitude")
+            print("- - - - - - -       - - - - - -      - - -     - - - - -     - - - - -")
+            for data in geoData:
+                data = json.loads(data)
+                print(f'{data["sess_id"]}             {data["country"]}            {data["iso"]}     {data["latitude"]}      {data["longitude"]}')
+        else: print("[-] Err : No Geo sessions stored.")
     elif action[1] == "-c" or action[1] == "--config":
         print("Config Values :")
         print("Interface : "+config["interface"])
@@ -224,19 +222,22 @@ def mod_config():
         if "-i" in arg:
             if "--interface" in arg: interface = arg.split(arg[11])[1]
             else: interface = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+interface+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'"\n}'); confF.close()
-        if "-p" in arg:
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+interface+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
+        elif "--path" in arg:
+            path = arg.split(arg[6])[1]
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+path+'"\n}'); confF.close()
+        elif "-p" in arg:
             if "--packages" in arg: packages = arg.split(arg[10])[1]
             else: packages = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+packages+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'"\n}'); confF.close()
-        if "-t" in arg:
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+packages+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
+        elif "-t" in arg:
             if "--token" in arg: token = arg.split(arg[7])[1]
             else: token = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+token+'",\n    "dictionary":"'+conf["dictionary"]+'"\n}'); confF.close()
-        if "-d" in arg:
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+token+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
+        elif "-d" in arg:
             if "--dictionary" in arg: dictionary = arg.split(arg[13])[1]
             else: dictionary = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+dictionary+'"\n}'); confF.close()
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+dictionary+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
     print("[+] Config updated succesfully")
 
 def help_panel():
@@ -252,7 +253,13 @@ def help_panel():
 # Functions
 
 def setup():
-    os.system('service apache2')
+    with open("config.json", "r") as cFile: config = json.loads(cFile.read()); cFile.close()
+    if config["interface"] == "":
+        os.system('mkdir /var/www/html/b4dboy')
+        os.system('mv payloads /var/www/html/b4dboy/')
+        print("[!] Network interface is not configured")
+    os.system('service apache2 start')
+    print("[*] Apache server started on *:80")
 
 def make_id():
     id = ""
@@ -307,28 +314,28 @@ def remove_session(id):
 
 def remove_geo(id):
     with open("logs/geo.json", "r") as sesF:
-        sessData = sesF.read()
-        lista = sessData.replace("[","").replace("]","").split(",")
-        sessData = []
-        for arg in lista:
-            sessData.append(json.loads(arg))
-        for session in sessData:
-            if id == session['sess_id']:
-                sessData.remove(session)
+        data = sesF.read()
     sesF.close()
-    with open("logs/geo.json", "w") as sesF:
+    sessData = data.replace("[","").replace("]","").replace("\n","").replace(",{",",{{").split(",{")
+    for sess in sessData:
+        dato2 = json.loads(sess)
+        if dato2["sess_id"] == id: new = dato2; sessData.remove(sess)
+    print(new)
+    print(sessData)
+    with open("logs/geo.json", "w") as geoF:
         for sess in sessData:
-            sesF.write('\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}')
-            if sessData.index(sess) == len(sessData): sesF.write("\n]")
-            else: sesF.write("\n,")
-    sesF.close()
-    os.system('clear')
+            session = sess
+            sess = json.loads(sess)
+            if sessData.index(session) == 0: value = '[\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n'
+            elif sessData.index(session) == len(sessData)-1: value = ',{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]'
+            else: value = ',{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n,'
+            geoF.write(value)
     banner()
     print("[+] Session removed successfully")
 
-
-# Interpreter
 banner()
+setup()
+# Interpreter
 while True:
     with open("config.json", "r") as cFile:
         config = json.loads(cFile.read())
@@ -352,6 +359,8 @@ while True:
             elif action[0] == "config":
                 if len(action) > 1 and action[1] !="" : mod_config()
                 else: print("[-] Parameter Missing. Use h or help for help panel")
+            elif action[0] == "rem":
+                remove_geo("test2")
             elif action[0] == "clear":
                 os.system('clear'); banner()
     except KeyboardInterrupt:
