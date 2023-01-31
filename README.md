@@ -6,13 +6,9 @@ git clone https://www.github.com/r4yx/b4dboy
 cd b4dboy
 pip3 install -r requirements.txt
 ```
-## Configure path before start
+## Configure interface before start
 ```
-python3 main.py -c /root/
-```
-or
-```
-B4Dboy > config -p=/home/us3r/work_dir/
+B4Dboy > config -i=wlo2
 ```
 
 
@@ -57,6 +53,5 @@ B4Dboy > config -p=/home/us3r/work_dir/
 -p/--packages : configura la cantidad de paquetes maxima durante el escaneo. Recomendamos aumentar a 20 si esta realizando muchas peticiones desde su ip, ¡TENGA EN CUENTA QUE AUMENTAR EL NUMERO DE PAQUETES AUMENTARA LA DEMORA DE EJECUCION! (default : 15)
 -t/--token : en caso de tener un token de ngrok puede configurarlo. Modo de uso :config -t=<token>
 -d/--dictionary : modifique el diccionario que se usa para generar las id de sesiones
---path : modifique la ubicacion de b4dboy. Modo de uso :config --path=/home/us3r/tools/
 
 [Info] Por mas que se aconseja la modificacion de ciertos parametros para un uso mas comodo y practico, asegurese de saber lo q hace antes de configurar.
