@@ -53,5 +53,6 @@ B4Dboy > config -i=wlo2
 -p/--packages : configura la cantidad de paquetes maxima durante el escaneo. Recomendamos aumentar a 20 si esta realizando muchas peticiones desde su ip, ¡TENGA EN CUENTA QUE AUMENTAR EL NUMERO DE PAQUETES AUMENTARA LA DEMORA DE EJECUCION! (default : 15)
 -t/--token : en caso de tener un token de ngrok puede configurarlo. Modo de uso :config -t=<token>
 -d/--dictionary : modifique el diccionario que se usa para generar las id de sesiones
+* -sm/--server-manager : determine como se iniciara el servidor local (normalmente apache2)
 
 [Info] Por mas que se aconseja la modificacion de ciertos parametros para un uso mas comodo y practico, asegurese de saber lo q hace antes de configurar.
