@@ -2,7 +2,6 @@
 import random as r
 import subprocess
 import requests
-import optparse
 import json
 import os
 
