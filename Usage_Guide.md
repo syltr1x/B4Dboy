@@ -1,18 +1,9 @@
-# B4Dboy
+# B4Dboy guide of usage
 
-## Installation
-```
-git clone https://www.github.com/syltr1x/b4dboy
-cd b4dboy
-pip3 install -r requirements.txt
-```
 ## Configure interface before start
 ```
 B4Dboy > config -i=wlo2
 ```
-
-
-## B4Dboy guide of usage
 
 ### Language/Lenguaje : Spanish/Español
 [Info] se señalara con * los parametros obligatorios.
