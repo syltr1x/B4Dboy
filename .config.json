@@ -4,6 +4,4 @@
     "token":"",
     "dictionary":"ab",
     "path":"",
-    "server_mg":"service apache2",
-    "nportg":"ncat"
 }
