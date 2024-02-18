@@ -1,7 +1,5 @@
 {
-    "interface":"ens33",
-    "packages":"15",
     "token":"",
-    "dictionary":"ab",
-    "ncli":""
+    "dictionary":"aa",
+    "ncli":"ncat"
 }

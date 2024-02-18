@@ -26,11 +26,5 @@ def install_cli(os=""):
     else:
         print("Error: Netcat Cli not found, please install manually")
 
-def exec_cli(args=[""]):
-    print(f"netcat", ' '.join([i for i in args]))
-
-exec_cli(args=["-lvp", "9080", "-e /bin/bash"])
-
-#cli = detect_cli()
-#if cli != 0: print(f"Client Found:{cli}")
-#else: install_cli(detect_os())
+def exec_cli(cli, args=[""]):
+    sp.call(f"{cli}", ' '.join([i for i in args]), shell=True)
