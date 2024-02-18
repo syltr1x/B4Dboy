@@ -2,6 +2,7 @@
 import random as r
 import subprocess
 import requests
+import netcat
 import json
 import os
 
@@ -222,10 +223,6 @@ def mod_config(args):
             if "--dictionary" in arg: dictionary = arg.split(arg[13])[1]
             else: dictionary = arg.split(arg[2])[1]
             with open(".config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+dictionary+'",\n    "path":"'+conf["path"]+'"\n}'); confF.close()
-        if "-p" in arg:
-            if "--path" in arg: path = arg.split(arg[6])[1]
-            else: path = arg.split(arg[2])[1]
-            with open(".config.json", "w") as confF: confF.write('{\n    "interface":"'+conf["interface"]+'",\n    "packages":"'+conf["packages"]+'",\n    "token":"'+conf["token"]+'",\n    "dictionary":"'+conf["dictionary"]+'",\n    "path":"'+path+'"\n}'); confF.close()
     print("[+] Config updated succesfully")
 
 def help_panel():
@@ -238,19 +235,15 @@ def help_panel():
     print("config\n      -i/--interface      Config network interface\n      -p/--packages       Config the amount of packages received\n      -t/--token          Set or add token of ngrok\n      -d/--dictionary     Modify the parameters for create session id\n")
 
 # Functions
-
 def setup():
     with open(".config.json", "r") as cFile: config = json.loads(cFile.read()); cFile.close()
     # Config
     if config["interface"] == "": print("Please configure interface :config -i=interface")
-    if config["server_mg"] == "": print("Please configure local server manager command. Ex :config -sm=service apache2")
-    if config["nportg"] == "": print("Please configure port manager. Ex :config -pm=ncat")
     # Programs
     apps = []
     print("[!] Installing Thsark.."); apps.append('tshark')if str(subprocess.check_output("tshark -c 0&", shell=True)) == "127" else print("[+] Tshark is instaled")
     print(f'[!] Installing {config["nportg"]}.') if str(subprocess.check_output(config["nportg"]+' localhost &', shell=True)) == "127" else print(f'[+] {config["nportg"]} is instaled')
     for i in apps: os.system(f'sudo apt install {i}')
-    os.system('clear')
     banner()
     # Services
     out = str(subprocess.check_output("ps aux | grep apache2", shell=True))
