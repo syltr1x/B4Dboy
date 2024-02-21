@@ -1,6 +1,7 @@
 #!/bin/python3
-import random as r
 from colorama import Fore, init
+import readline as rdl
+import random as r
 import subprocess
 import requests
 import json
@@ -8,6 +9,7 @@ import os
 # My libs
 import payloads.payfile as payfile
 import netcat
+
 init()
 def banner():
     print(Fore.MAGENTA)
@@ -341,21 +343,21 @@ def remove_geo(id):
     print("[+] Session removed successfully")
 
 # Interpreter
+histfile = ".bb_history"
+try:
+    rdl.read_history_file(histfile)
+except FileNotFoundError:
+    open(histfile, 'wb').close()
+    rdl.read_history_file(histfile)
 setup()
 while True:
     with open(".config.json", "r") as cFile:
         config = json.loads(cFile.read())
     try:
         action = input("B4Dboy > ").split(' ')
+        rdl.add_history(' '.join(action))
         if action[0] != "":
-            if action[0] == "close" or action[0] == "bye":
-                close_vrf = input("\nQuiere salir del programa? [Y/n] > ")
-                if close_vrf != "n" and close_vrf != "N":
-                    print("Saliendo ...")
-                    os.system("service apache2 stop")
-                    os.system('clear')
-                    exit()
-            elif action[0] == "h" or action[0] == "help":
+            if action[0] == "h" or action[0] == "help":
                 help_panel()
             elif action[0] == "gen" or action[0] == "generate":
                 if len(action) > 1: generate_bd()
@@ -388,3 +390,5 @@ while True:
             os.system('kill $(pgrep -f "python -m http.server 80 -d server")')
             os.system('clear')
             exit()
+
+rdl.write_history_file(histfile)
