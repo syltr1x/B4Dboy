@@ -1,3 +1,7 @@
+if [ ! -d "server" ]; then
+    mkdir server
+fi
+
 sudo python -m http.server 80 -d server > output.txt 2>&1 &
 if [ $1 == "listen" ]; then
     while true; do

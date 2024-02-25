@@ -18,7 +18,8 @@ B4Dboy > config -i=wlo2
 ## Payload command : Usar para crear cargas útiles ejecutables una vez iniciada la reverse shell en la maquina victima
 -ip : crea una carga útil que obtiene la ip publica y datos de geolocalizacion de la maquina victima que puede usar para añadir informacion a el registro de sus sesiones<br>
 -os : obtiene informacion de la maquina victima como : nombre del dispositivo y usuario.
-
+-ssh : Instala y ejecuta ssh server
+-info : Muestra informacion varia sobre la sesion y el sistema 
 [Info] este comando soporta un solo parametro de uso.
 
 ## Log command : Usar para modificar o remover sessiones, o eliminar todas del registro.
@@ -40,7 +41,6 @@ B4Dboy > config -i=wlo2
 -c/--config : muestra la configuracion de ejecucion
 
 ## Config command : Usar para configurar parametros de ejecucion en los comandos
-* -n/--ncli : configura el comando para usar netcat. Es vital para la ejecucion de b4dboy<br>
 -t/--token : en caso de tener un token de ngrok puede configurarlo. Modo de uso :config -t=token<br>
 -d/--dictionary : modifique el diccionario que se usa para generar las id de sesiones
 

